@@ -15,6 +15,25 @@ Included in the fancy/ subdirectory are NgxFancyIndex files for making
 nice HTML pages for listing directories and using colors to indicate
 latest and stable releases.
 
-### nginx configuration file
-You'll need a configuration file for nginx, which is not specified in
-this repository.
+### Installation instructions
+
+Make sure that your data is inside `/www/` and you have Docker installed.
+
+    git clone https://github.com/VISIONAI/vmx-release-manager
+    cd vmx-release-manager
+    ./start.sh
+
+
+### vision.ai SSL installation
+
+For the SSL installation, you'll need access to the SSL certificates
+as a vision.ai admin.
+
+    git clone https://github.com/VISIONAI/nginx-ssl-proxy
+    cd nginx-ssl-proxy
+    ./proxy.sh
+
+
+### License
+
+MIT License
