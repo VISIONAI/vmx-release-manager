@@ -7,6 +7,7 @@
 # 
 # Copyright 2014 Tomasz Malisiewicz (tom@vision.ai)
 while true; do
+    ./make_latest.sh VMXdocs .
     ./make_latest.sh VMXserver Linux
     ./make_latest.sh VMXserver Mac
     ./make_latest.sh VMXmiddle Linux
