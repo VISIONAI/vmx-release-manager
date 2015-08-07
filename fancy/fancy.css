@@ -1,5 +1,3 @@
-@import is "https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css";
-
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -33,4 +31,9 @@ body {
 }
 .container .text-muted {
   margin: 20px 0;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+    tr td:nth-child(3) { display:none; }
+    tr th:nth-child(3) { display:none; }
 }
