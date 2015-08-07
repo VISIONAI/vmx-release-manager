@@ -1,10 +1,14 @@
 #!/bin/sh
 #
 # Simple script to re-start the files.vision.ai container, which has
-# the name nginx-files
+# the name nginx-files as well as the generator container, which has
+# the name nginx-files-generator.
+#
 # Copyright vision.ai, LLC 2015
 
 cd `dirname $0`
+
+#Stop our containers
 docker stop nginx-files && docker rm -v nginx-files
 docker stop nginx-files-generator && docker rm -v nginx-files-generator
 
@@ -17,11 +21,12 @@ docker run -d --name nginx-files \
     -v `pwd`/fancyfiles.conf:/etc/nginx/sites-enabled/default:ro \
     -v `pwd`/fancy:/fancy:ro \
     -v /www:/usr/share/nginx/html:ro \
-    xdrum/nginx-extras
+    xdrum/nginx-extras:latest
 
+#Run the generator script which will watch for new files
 docker run -d --name nginx-files-generator \
     -v /www:/www \
-    -v `pwd`/scripts:/root \
-    ubuntu /bin/sh -c "cd /root && ./looper.sh"
+    -v `pwd`/scripts:/root:ro \
+    ubuntu:latest /bin/sh -c "cd /root && ./looper.sh"
 
 
