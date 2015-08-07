@@ -63,6 +63,14 @@ as a **vision.ai admin**.
 This will run the `nginx-proxy` Docker container, which will map the
 `nginx-files` container's port to 443 using the SSL certificate.
 
+### Testing
+If something doesn't appear to work, make sure the requests are coming in:
+    docker logs -f nginx-files
+
+To see the file generation log, just type:
+    docker logs -f nginx-files-generator
+
+
 ### License
 
 MIT License
