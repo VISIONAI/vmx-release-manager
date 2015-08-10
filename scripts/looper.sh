@@ -5,7 +5,16 @@
 # something similar.  This might not be the most elegant way of doing
 # this, but it works!
 # 
-# Copyright 2014 Tomasz Malisiewicz (tom@vision.ai)
+# Copyright 2015 Tom Malisiewicz (tom@vision.ai)
+
+export ROOTDIR=/www/vmx/
+if [ ! -e $ROOTDIR ]; then
+    echo "Cannot find ROOTDIR=$ROOTDIR"
+    exit 1
+fi
+
+SLEEPTIMER=60
+
 while true; do
     ./make_latest.sh VMXdocs .
     ./make_latest.sh VMXserver Linux
@@ -14,6 +23,7 @@ while true; do
     ./make_latest.sh VMXmiddle Mac
     ./make_latest.sh vmxAppBuilder .
     ./make_latest.sh MacInstaller .
-    #ln -s /www/vmx/MacInstaller/MacInstaller.latest.pkg /www/releases.VMX.pkg
-    sleep 60
+
+    echo "Sleeping for" $SLEEPTIMER "seconds"
+    sleep $SLEEPTIMER
 done
