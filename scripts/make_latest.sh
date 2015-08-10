@@ -39,7 +39,10 @@ if [ "$#" -ne 2 ]; then
     exit;
 fi
 
-ROOTDIR=/www/vmx/
+if [ ! -e $ROOTDIR ]; then
+    ROOTDIR=/www/vmx/
+    echo "Setting ROOTDIR=$ROOTDIR"
+fi
 
 NAME=$1
 PLATFORM=$2
@@ -50,8 +53,14 @@ else
     PSTRING=_${PLATFORM}
 fi
 
-echo 'Name='$NAME 'Platform='$PLATFORM
-TARBALLS=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | sort -V`
+echo 'Name='$NAME 'Platform='$PLATFORM 'Date='`date`
+TARBALLS=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" 2> /dev/null | sort -V`
+
+if [ -z "$TARBALLS" ]; then
+    echo  '---- Skipping this configuration, no tarballs'
+    exit 1
+fi
+
 latest=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | sort -V | tail -1`
 #latest=`ls -ltr $TARBALLS | awk {'print $9'} | tail -1`
 echo 'Latest is' $latest
@@ -61,10 +70,6 @@ if [ "`basename $latest .pkg`.pkg" == "`basename $latest`" ]; then
     EXT=pkg
 fi
 
-if [ -z "$TARBALLS" ]; then
-    echo  '---- Skipping this configuration, no tarballs'
-    continue
-fi
 
 echo 'EXT is' $EXT
 if [ "$EXT" == "tar.gz" ]; then
