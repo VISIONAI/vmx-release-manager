@@ -10,6 +10,7 @@ cd `dirname $0`
 
 #Stop our containers
 docker stop nginx-files && docker rm -v nginx-files
+docker stop nginx-files-http && docker rm -v nginx-files-http
 docker stop nginx-files-generator && docker rm -v nginx-files-generator
 
 #This will serve the /www directory using the fancyfiles.conf
@@ -22,6 +23,14 @@ docker run -d --name nginx-files \
     -v `pwd`/fancy:/fancy:ro \
     -v /www:/usr/share/nginx/html:ro \
     xdrum/nginx-extras:latest
+
+docker run -d --name nginx-files-http \
+     -p 80:80 \
+     -v `pwd`/fancyfiles.conf:/etc/nginx/sites-enabled/default:ro \
+     -v `pwd`/fancy:/fancy:ro \
+     -v /www:/usr/share/nginx/html:ro \
+     xdrum/nginx-extras:latest
+
 
 #Run the generator script which will watch for new files
 docker run -d --name nginx-files-generator \
