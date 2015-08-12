@@ -53,11 +53,17 @@ Make sure that your data is inside `/www/` and you have Docker installed.
     cd vmx-release-manager
     ./start.sh
 
-This will start two Docker containers called `nginx-files`, `nginx-files-http` and
-`nginx-files-generator`. `nginx-files` serves the files from `/www`
-using the nginx configuration inside `fancyfiles.conf`, but it serves
-the content on port 5000 which is only available to 127.0.0.1, and not
-the outside world.
+This will start three Docker containers called `nginx-files`,
+`nginx-files-http` and `nginx-files-generator`. `nginx-files` serves
+the files from `/www` using the nginx configuration inside
+`fancyfiles.conf`, but it serves the content on port 5000 which is
+only available to 127.0.0.1, and not the outside world. Currently we
+serve files.vision.ai over http in addition to https, but will likely
+be removed in the future.
+
+The `nginx-files-generator` container will periodically regenerate the
+.json files and directlry listing content files.  Just take a look at
+`looper.sh` if you want to see how the json generation bit works.
 
 #### vision.ai SSL installation
 
@@ -71,12 +77,12 @@ as a **vision.ai admin**.
 This will run the `nginx-proxy` Docker container, which will map the
 `nginx-files` container's port to 443 using the SSL certificate.
 
-### Sending files to files.vision.ai
+#### Sending files to files.vision.ai
 
 If you want to send a file to the fileserver and you are a **vision.ai
 admin**, then make sure that files.vision.ai has your SSH key and then use scp:
 
-   scp vmxAppBuilder_v1.0.0.tar.gz root@files.vision.ai:/www/vmx/vmxAppBuilder/
+    scp vmxAppBuilder_v1.0.0.tar.gz root@files.vision.ai:/www/vmx/vmxAppBuilder/
 
 
 ### Testing
