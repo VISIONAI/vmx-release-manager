@@ -21,14 +21,18 @@ docker run -d --name nginx-files \
     -e VIRTUAL_HOST=files.vision.ai \
     -v `pwd`/fancyfiles.conf:/etc/nginx/sites-enabled/default:ro \
     -v `pwd`/fancy:/fancy:ro \
-    -v /www:/usr/share/nginx/html:ro \
+    -v /www/vmx:/usr/share/nginx/html/vmx:ro \
+    -v /www/releases:/usr/share/nginx/html/releases:ro \
+    -v /www/images:/usr/share/nginx/html/images:ro \
     xdrum/nginx-extras:latest
 
 docker run -d --name nginx-files-http \
      -p 80:80 \
      -v `pwd`/fancyfiles.conf:/etc/nginx/sites-enabled/default:ro \
      -v `pwd`/fancy:/fancy:ro \
-     -v /www:/usr/share/nginx/html:ro \
+     -v /www/vmx:/usr/share/nginx/html/vmx:ro \
+     -v /www/releases:/usr/share/nginx/html/releases:ro \
+     -v /www/images:/usr/share/nginx/html/images:ro \
      xdrum/nginx-extras:latest
 
 
