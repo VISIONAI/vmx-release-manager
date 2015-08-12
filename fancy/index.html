@@ -1,44 +1,73 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<title>vision.ai -- files.vision.ai</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dependencies for vision.ai's computer vision server">
+    <meta name="author" content="vision.ai">
+    <title>vision.ai -- files.vision.ai</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fancy/fancy.css">
 </head>
-
 <body>
-<img src="/images/vision.ai.png">
-<br/><br/>
-Latest builds:
-<div id="VMXserver-Mac"></div>
-<div id="VMXserver-Linux"></div>
-<div id="VMXmiddle-Mac"></div>
-<div id="vmxAppBuilder"></div>
-<div id="VMXdocs"></div>
+    <div class="container">	
+	<div class="row">
+	  <div class="col-md-12">
+	    <h3>Latest VMX builds</h3>
+	    <div id="VMXserver-Mac"></div>
+	    <div id="VMXserver-Linux"></div>
+	    <div id="VMXmiddle-Mac"></div>
+	    <div id="vmxAppBuilder"></div>
+	    <div id="VMXdocs"></div>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-12">
+	    <h3>Latest VMX installers</h3>
+	    <div id="MacInstaller"></div>
+	  </div>
+	  <div class="col-md-12">
+	    <h3>Directory Listing</h3>
+	 
+<a href="/vmx"><button type="button" class="btn btn-default btn-info" aria-label="Left Align">
+  <span class="glyphicon glyphicon-align-left" aria-hidden="true">Files</span>
+</button></a>
+	    <a href="/vmx">files.vision.ai directory listing</a>
+	  </div>
+	  <div class="col-md-12">
+	    <h3>API</h3>
+	    GET <a href="/vmx/VMXdocs/MD5SUMS.json">/vmx/VMXdocs/MD5SUMS.json</a><br/>
+	    GET <a href="/vmx/vmxAppBuilder/MD5SUMS.json">/vmx/vmxAppBuilder/MD5SUMS.json</a><br/>
+	    GET <a href="/vmx/VMXserver/Mac/MD5SUMS.json">/vmx/VMXserver/Mac/MD5SUMS.json</a><br/>
+	    GET <a href="/vmx/VMXserver/Linux/MD5SUMS.json">/vmx/VMXserver/Linux/MD5SUMS.json</a><br/>
+	    GET <a href="/vmx/VMXmiddle/Mac/MD5SUMS.json">/vmx/VMXmiddle/Mac/MD5SUMS.json</a><br/>
+	    GET <a href="/vmx/MacInstaller/MD5SUMS.json">/vmx/MacInstaller/MD5SUMS.json</a><br/>
+	  </div>
 
-<br/>
-Latest installers:
-<div id="MacInstaller"></div>
+	  <div class="col-md-12">
+	    <h3>Related</h3>
+	    If you're looking for VMX models to download, perhaps try <a href="https://models.vision.ai/">models.vision.ai</a>.
+	  </div>
+	</div>
+    </div>
+<div class="footer">
+  <div class="container">
+    <p class="text-muted">&copy;2015 <a href="https://vision.ai">vision.ai</a></p>
+  </div>
+</div>
 
-<!-- <br/> -->
-<!-- VISIONAI Github Repositories: -->
-<!-- <div id="vmx-docker-manager"></div> -->
-<!-- <div id="vmx-release-manager"></div> -->
-<!--<div id="clouddream"></div>-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-<!-- <br/> -->
-<!-- Docker Hub Tags: -->
-<!-- <div id="vmx-server"></div> -->
-<!-- <div id="vmx-middle"></div> -->
-<!-- <div id="vmx-appbuilder"></div> -->
-<!-- <div id="vmx-kitematic"></div> -->
-
-
-<br/>
-Visit the entire <a href="/vmx">files.vision.ai directory listing</a>. 
-
-<br/><br/>
-If you're looking for VMX models to download, perhaps try <a href="https://models.vision.ai/">models.vision.ai</a>.
-</body>
+  ga('create', 'UA-56251985-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 <script>
 
@@ -68,52 +97,12 @@ If you're looking for VMX models to download, perhaps try <a href="https://model
   replacer('VMXdocs');
   replacer('MacInstaller');
 
-<!-- function gitter(repo) { -->
-<!--   var url = 'https://api.github.com/repos/VISIONAI/'+repo+'/tags'; -->
-<!--   var id = repo; -->
-<!--   $.ajax({ -->
-<!--             url: url, -->
-<!--             type: "GET", -->
-<!--             dataType: "json", -->
-<!--             success: function (data) { -->
-<!--                 var latest = data[0]; -->
-<!--                 $('#'+id).append('<a href="https://github.com/VISIONAI/'+repo+'">'+repo+' '+latest.name+'</a>');                -->
-
-<!--             } -->
-<!--         }).fail(function (data) { -->
-
-<!--         }).always(function () { -->
-
-<!--         }); -->
-  
-<!-- } -->
-
-<!-- gitter('vmx-docker-manager'); -->
-<!-- gitter('vmx-release-manager'); -->
-<!-- //gitter('clouddream'); -->
-
-<!-- function dockerhub(repo) { -->
-<!--   var url = 'https://registry.hub.docker.com/v1/repositories/visionai/'+repo+'/tags'; -->
-<!--   var id = repo; -->
-<!--   $.ajax({ -->
-<!--             url: url, -->
-<!--             type: "GET", -->
-<!--             dataType: "json", -->
-<!--             success: function (data) { -->
-<!--   //var latest = data[0]; -->
-<!--                 $('#'+id).append(data.toJson()); -->
-
-<!--             } -->
-<!--         }).fail(function (data) { -->
-
-<!--         }).always(function () { -->
-
-<!--         }); -->
-  
-<!-- } -->
-<!-- dockerhub('vmx-server'); -->
-<!-- dockerhub('vmx-middle'); -->
-<!-- dockerhub('vmx-appbuilder'); -->
-
 </script>
+
+</body>
 </html>
+
+
+
+
+

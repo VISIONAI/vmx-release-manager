@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dependencies for vision.ai's computer vision server">
+    <meta name="author" content="vision.ai">
+    <title>404 Not Found</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fancy/fancy.css">
+</head>
+<body>
+    <div class="container">
+        
+	
+	<div class="row">
+	  <div class="col-md-12">
+	    <h4 style="color:red">404 Not Found</h4>
+	    Cannot find <b id="info"></b>
+	  </div>
+	  <div class="col-md-12">
+
+	  </div>
+
+	  <div class="col-md-12">
+<a href="/vmx"><button type="button" class="btn btn-default btn-info" aria-label="Left Align">
+  <span class="glyphicon glyphicon-align-left" aria-hidden="true">Files</span>
+</button></a>
+	    <a href="/vmx">files.vision.ai directory listing</a>
+
+	  </div>
+
+	</div>
+	<div class="row">
+	</div>
+    </div>
+
+<div class="footer">
+  <div class="container">
+    <p class="text-muted">&copy;2015 <a href="https://vision.ai">vision.ai</a></p>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+      var path = $('h1:first').text().split('\n')[1];
+      window.document.title = '404 Not Found: ' + window.location.href;
+    $('#info').html(window.location.href);
+  });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56251985-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+$( document ).ready(function() {
+    var a=$("a");
+    for (var i = 0; i < a.length; ++i) {
+	var inner = a[i].innerHTML;
+	if (inner.indexOf(".stable.") > 0) {
+	    a[i].style.color='green';
+	} else if (inner.indexOf(".latest.") > 0) {
+	    a[i].style.color='blue';
+	}	
+    }
+});
+</script>
+</body>
+</html>
