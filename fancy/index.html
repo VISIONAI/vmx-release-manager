@@ -1,0 +1,119 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<title>vision.ai -- files.vision.ai</title>
+</head>
+
+<body>
+<img src="/images/vision.ai.png">
+<br/><br/>
+Latest builds:
+<div id="VMXserver-Mac"></div>
+<div id="VMXserver-Linux"></div>
+<div id="VMXmiddle-Mac"></div>
+<div id="vmxAppBuilder"></div>
+<div id="VMXdocs"></div>
+
+<br/>
+Latest installers:
+<div id="MacInstaller"></div>
+
+<!-- <br/> -->
+<!-- VISIONAI Github Repositories: -->
+<!-- <div id="vmx-docker-manager"></div> -->
+<!-- <div id="vmx-release-manager"></div> -->
+<!--<div id="clouddream"></div>-->
+
+<!-- <br/> -->
+<!-- Docker Hub Tags: -->
+<!-- <div id="vmx-server"></div> -->
+<!-- <div id="vmx-middle"></div> -->
+<!-- <div id="vmx-appbuilder"></div> -->
+<!-- <div id="vmx-kitematic"></div> -->
+
+
+<br/>
+Visit the entire <a href="/vmx">files.vision.ai directory listing</a>. 
+
+<br/><br/>
+If you're looking for VMX models to download, perhaps try <a href="https://models.vision.ai/">models.vision.ai</a>.
+</body>
+
+<script>
+
+  function replacer(url) {
+  var id = url.replace('/','-');
+  var oldurl = url;
+  var url = "/vmx/"+oldurl+"/MD5SUMS.json";
+  $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var size = data.latest.size / (1024*1024);
+                size = size.toFixed(2);
+                $('#'+id).append('<a href="'+'/vmx/'+oldurl+'/'+data.latest.file+'">'+data.latest.file+'</a> ('+size+'MB)');
+            }
+        }).fail(function (data) {
+
+        }).always(function () {
+
+        });
+  }
+  replacer('VMXserver/Mac');
+  replacer('VMXserver/Linux');
+  replacer('VMXmiddle/Mac');
+  replacer('vmxAppBuilder');
+  replacer('VMXdocs');
+  replacer('MacInstaller');
+
+<!-- function gitter(repo) { -->
+<!--   var url = 'https://api.github.com/repos/VISIONAI/'+repo+'/tags'; -->
+<!--   var id = repo; -->
+<!--   $.ajax({ -->
+<!--             url: url, -->
+<!--             type: "GET", -->
+<!--             dataType: "json", -->
+<!--             success: function (data) { -->
+<!--                 var latest = data[0]; -->
+<!--                 $('#'+id).append('<a href="https://github.com/VISIONAI/'+repo+'">'+repo+' '+latest.name+'</a>');                -->
+
+<!--             } -->
+<!--         }).fail(function (data) { -->
+
+<!--         }).always(function () { -->
+
+<!--         }); -->
+  
+<!-- } -->
+
+<!-- gitter('vmx-docker-manager'); -->
+<!-- gitter('vmx-release-manager'); -->
+<!-- //gitter('clouddream'); -->
+
+<!-- function dockerhub(repo) { -->
+<!--   var url = 'https://registry.hub.docker.com/v1/repositories/visionai/'+repo+'/tags'; -->
+<!--   var id = repo; -->
+<!--   $.ajax({ -->
+<!--             url: url, -->
+<!--             type: "GET", -->
+<!--             dataType: "json", -->
+<!--             success: function (data) { -->
+<!--   //var latest = data[0]; -->
+<!--                 $('#'+id).append(data.toJson()); -->
+
+<!--             } -->
+<!--         }).fail(function (data) { -->
+
+<!--         }).always(function () { -->
+
+<!--         }); -->
+  
+<!-- } -->
+<!-- dockerhub('vmx-server'); -->
+<!-- dockerhub('vmx-middle'); -->
+<!-- dockerhub('vmx-appbuilder'); -->
+
+</script>
+</html>
