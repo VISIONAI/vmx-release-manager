@@ -92,8 +92,8 @@ FL=`ls *.${EXT} | grep "latest"`
 FS=`ls *.${EXT} | grep "stable"`
 F=`ls *.${EXT} | sort -V -r | grep -v "latest" | grep -v "stable"`
 md5sum ${FL} ${FS} ${F} > MD5SUMS.txt 2>/dev/null
-sha1sum ${FL} ${FS} ${F} > SHA1SUMS.txt 2>/dev/null
-sha256sum ${FL} ${FS} ${F} > SHA256SUMS.txt 2>/dev/null
+#sha1sum ${FL} ${FS} ${F} > SHA1SUMS.txt 2>/dev/null
+#sha256sum ${FL} ${FS} ${F} > SHA256SUMS.txt 2>/dev/null
 echo "Making json"
 ${CWD}/md52json.sh MD5SUMS.txt > MD5SUMS.json
 cd - >/dev/null
