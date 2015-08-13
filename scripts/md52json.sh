@@ -23,18 +23,22 @@ fname_stable=($(head -2 $INPUT_FILE | tail -1 | awk '{print($2)}'))
 real_stable=($(tail -$LAST $INPUT_FILE | grep $hash_stable | awk '{print($2)}'))
 size_stable=`ls -l $real_stable | awk '{print($5)}'`
 
-echo -n "{\"latest\":{\"hash\":\"${hash_latest}\",\"link\":\"${fname_latest}\",\"file\":\"${real_latest}\",\"size\":$size_latest},"
-echo -n "\"stable\":{\"hash\":\"${hash_stable}\",\"link\":\"${fname_stable}\",\"file\":\"${real_stable}\",\"size\":$size_stable}," 
+echo -n "{\"latest\":{\"md5\":\"${hash_latest}\",\"link\":\"${fname_latest}\",\"file\":\"${real_latest}\",\"size\":$size_latest},"
+echo -n "\"stable\":{\"md5\":\"${hash_stable}\",\"link\":\"${fname_stable}\",\"file\":\"${real_stable}\",\"size\":$size_stable}" 
 
-echo -n "\"data\":["
+
+echo -n "}"
+exit
+
+echo -n ",\"data\":["
 for i in `seq 0 $L`; do
     hash=${hashes[$i]}
     fname=${fnames[$i]}
     sizer=`ls -l $fname | awk '{print($5)}'`
-    echo -n "{\"hash\":\"$hash\",\"file\":\"$fname\",\"size\":$sizer},"
+    echo -n "{\"md5\":\"$hash\",\"file\":\"$fname\",\"size\":$sizer},"
 done
 
 hash=${hashes[$Lfinal]}
 fname=${fnames[$Lfinal]}
 sizer=`ls -l $fname | awk '{print($5)}'`
-echo "{\"hash\":\"$hash\",\"file\":\"$fname\",\"size\":$sizer}]}"
+echo "{\"md5\":\"$hash\",\"file\":\"$fname\",\"size\":$sizer}]}"
