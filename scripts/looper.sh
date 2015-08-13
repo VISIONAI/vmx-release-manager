@@ -25,6 +25,8 @@ while true; do
     ./make_latest.sh vmxAppBuilder .
     ./make_latest.sh MacInstaller .
     ./make_latest.sh VMXdocs .
+
+    ./make_pretrained.sh > /tmp/pretrained.json && mv /tmp/pretrained.json /www/vmx/pretrained/MD5SUMS.json
     echo "Sleeping for" $SLEEPTIMER "seconds"
     sleep $SLEEPTIMER
 done
