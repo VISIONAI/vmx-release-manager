@@ -13,17 +13,18 @@ if [ ! -e $ROOTDIR ]; then
     exit 1
 fi
 
-SLEEPTIMER=60
+SLEEPTIMER=0
 
 while true; do
-    ./make_latest.sh VMXdocs .
     ./make_latest.sh VMXserver Linux
     ./make_latest.sh VMXserver Mac
+
     ./make_latest.sh VMXmiddle Linux
     ./make_latest.sh VMXmiddle Mac
+
     ./make_latest.sh vmxAppBuilder .
     ./make_latest.sh MacInstaller .
-
+    ./make_latest.sh VMXdocs .
     echo "Sleeping for" $SLEEPTIMER "seconds"
     sleep $SLEEPTIMER
 done
