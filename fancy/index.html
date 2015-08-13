@@ -11,25 +11,33 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fancy/fancy.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
 </head>
 <body>
+
     <div class="container">	
 	<div class="row">
-	  <div class="col-md-12">
+	  <div class="col-md-6" id="latest">
 	    <h3>Latest VMX builds</h3>
-	    <div id="VMXserver-Mac"></div>
-	    <div id="VMXserver-Linux"></div>
-	    <div id="VMXmiddle-Mac"></div>
-	    <div id="VMXmiddle-Linux"></div>
-	    <div id="vmxAppBuilder"></div>
-	    <div id="VMXdocs"></div>
 	  </div>
+
+	  <div class="col-md-6" id="stable">
+	    <h3>Stable VMX builds</h3>
+	  </div>
+	  
+	  <!-- <div class="col-md-12"> -->
+	  <!--   <h3>Stable VMX builds</h3> -->
+	  <!--   <div id="VMXserver-Mac"></div> -->
+	  <!--   <div id="VMXserver-Linux"></div> -->
+	  <!--   <div id="VMXmiddle-Mac"></div> -->
+	  <!--   <div id="VMXmiddle-Linux"></div> -->
+	  <!--   <div id="vmxAppBuilder"></div> -->
+	  <!--   <div id="VMXdocs"></div> -->
+	  <!-- </div> -->
+
 	</div>
 	<div class="row">
-	  <div class="col-md-12">
-	    <h3>Latest VMX installers</h3>
-	    <div id="MacInstaller"></div>
-	  </div>
 	  <div class="col-md-12">
 	    <h3>Directory Listing</h3>
 	 
@@ -38,14 +46,49 @@
 	    <a href="/vmx">files.vision.ai directory listing</a>
 	  </div>
 	  <div class="col-md-12">
-	    <h3>API</h3>
-	    GET <a href="/vmx/VMXdocs/MD5SUMS.json">/vmx/VMXdocs/MD5SUMS.json</a><br/>
-	    GET <a href="/vmx/vmxAppBuilder/MD5SUMS.json">/vmx/vmxAppBuilder/MD5SUMS.json</a><br/>
-	    GET <a href="/vmx/VMXserver/Mac/MD5SUMS.json">/vmx/VMXserver/Mac/MD5SUMS.json</a><br/>
-	    GET <a href="/vmx/VMXserver/Linux/MD5SUMS.json">/vmx/VMXserver/Linux/MD5SUMS.json</a><br/>
-	    GET <a href="/vmx/VMXmiddle/Mac/MD5SUMS.json">/vmx/VMXmiddle/Mac/MD5SUMS.json</a><br/>
-	    GET <a href="/vmx/VMXmiddle/Linux/MD5SUMS.json">/vmx/VMXmiddle/Linux/MD5SUMS.json</a><br/>
-	    GET <a href="/vmx/MacInstaller/MD5SUMS.json">/vmx/MacInstaller/MD5SUMS.json</a><br/>
+	    <h3>files.vision.ai API</h3>
+
+	    Request
+	    <pre>GET <a href="/vmx/pretrained/MD5SUMS.json">/vmx/pretrained/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="pretrained"></code></pre>
+
+	    
+	    Request
+	    <pre>GET <a href="/vmx/VMXserver/Mac/MD5SUMS.json">/vmx/VMXserver/Mac/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="VMXserverMac"></code></pre>
+
+	    Request
+	    <pre>GET <a href="/vmx/VMXserver/Linux/MD5SUMS.json">/vmx/VMXserver/Linux/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="VMXserverLinux"></code></pre>
+	    
+	    Request
+	    <pre>GET <a href="/vmx/VMXmiddle/Mac/MD5SUMS.json">/vmx/VMXmiddle/Mac/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="VMXmiddleMac"></code></pre>
+
+	    Request
+	    <pre>GET <a href="/vmx/VMXmiddle/Linux/MD5SUMS.json">/vmx/VMXmiddle/Linux/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="VMXmiddleLinux"></code></pre>
+	    
+	    Request
+	    <pre>GET <a href="/vmx/VMXdocs/MD5SUMS.json">/vmx/VMXdocs/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="VMXdocs"></code></pre>
+
+	    Request
+	    <pre>GET <a href="/vmx/vmxAppBuilder/MD5SUMS.json">/vmx/vmxAppBuilder/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="vmxAppBuilder"></code></pre>
+
+	    Request
+	    <pre>GET <a href="/vmx/MacInstaller/MD5SUMS.json">/vmx/MacInstaller/MD5SUMS.json</a><br/></pre>
+	    Response
+	    <pre><code class="json" id="MacInstaller"></code></pre>
+	    
 	  </div>
 
 	  <div class="col-md-12">
@@ -72,33 +115,64 @@
 
 <script>
 
-  function replacer(url) {
-  var id = url.replace('/','-');
-  var oldurl = url;
+  function build_generator(oldurl,id,id2) {
+
   var url = "/vmx/"+oldurl+"/MD5SUMS.json";
+  var url2 = oldurl.replace('/','');
+
   $.ajax({
             url: url,
             type: "GET",
             dataType: "json",
             success: function (data) {
-                var size = data.latest.size / (1024*1024);
-                size = size.toFixed(2);
-                $('#'+id).append('<a href="'+'/vmx/'+oldurl+'/'+data.latest.file+'">'+data.latest.file+'</a> ('+size+'MB)');
+
+                $('#'+url2).html(JSON.stringify(data,null,4));
+
+                hljs.highlightBlock($('#'+url2)[0]);
+                var size, file;
+                if (data.latest) {
+
+                  size = data.latest.size / (1024*1024);
+                  size = size.toFixed(2);
+                  file = data[id].file;
+                  $('#'+url2+id).html('<a href="'+'/vmx/'+oldurl+'/'+file+'">'+file+'</a> ('+size+'MB)');
+                
+                  size = data.stable.size / (1024*1024);
+                  size = size.toFixed(2);
+                  file = data[id2].file;
+                  $('#'+url2+id2).html('<a href="'+'/vmx/'+oldurl+'/'+file+'">'+file+'</a> ('+size+'MB)');
+
+                  }
+
             }
         }).fail(function (data) {
         }).always(function () {
         });
   }
-  replacer('VMXserver/Mac');
-  replacer('VMXserver/Linux');
-  replacer('VMXmiddle/Mac');
-  replacer('VMXmiddle/Linux');
-  replacer('vmxAppBuilder');
-  replacer('VMXdocs');
-  replacer('MacInstaller');
+
+  var builds = ['VMXserver/Mac',
+                'VMXserver/Linux',
+  'VMXmiddle/Mac',
+  'VMXmiddle/Linux',
+  'vmxAppBuilder',
+  'VMXdocs',
+  'MacInstaller',
+  'pretrained'];
+
+  for (var i = 0; i < builds.length; ++i) {
+    $('#latest').append('<div id="'+builds[i].replace('/','')+'latest'+'"></div>');
+    $('#stable').append('<div id="'+builds[i].replace('/','')+'stable'+'"></div>');
+  }
+
+
+  for (var i = 0; i < builds.length; ++i) {
+    build_generator(builds[i],'latest','stable');
+    //build_generator(builds[i],'stable');
+  }
+
 
 </script>
-
+<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
 

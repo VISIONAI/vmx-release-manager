@@ -37,3 +37,11 @@ body {
     tr td:nth-child(3) { display:none; }
     tr th:nth-child(3) { display:none; }
 }
+
+.banner-container{
+  background: url('../images/vision.ai.svg') no-repeat scroll;
+  background-size: contain;
+  background-position-y: 50%;
+  background-position-x: 50%;
+  height: 50%;
+}
