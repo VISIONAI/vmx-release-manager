@@ -20,6 +20,7 @@
 	    <div id="VMXserver-Mac"></div>
 	    <div id="VMXserver-Linux"></div>
 	    <div id="VMXmiddle-Mac"></div>
+	    <div id="VMXmiddle-Linux"></div>
 	    <div id="vmxAppBuilder"></div>
 	    <div id="VMXdocs"></div>
 	  </div>
@@ -43,6 +44,7 @@
 	    GET <a href="/vmx/VMXserver/Mac/MD5SUMS.json">/vmx/VMXserver/Mac/MD5SUMS.json</a><br/>
 	    GET <a href="/vmx/VMXserver/Linux/MD5SUMS.json">/vmx/VMXserver/Linux/MD5SUMS.json</a><br/>
 	    GET <a href="/vmx/VMXmiddle/Mac/MD5SUMS.json">/vmx/VMXmiddle/Mac/MD5SUMS.json</a><br/>
+	    GET <a href="/vmx/VMXmiddle/Linux/MD5SUMS.json">/vmx/VMXmiddle/Linux/MD5SUMS.json</a><br/>
 	    GET <a href="/vmx/MacInstaller/MD5SUMS.json">/vmx/MacInstaller/MD5SUMS.json</a><br/>
 	  </div>
 
@@ -84,14 +86,13 @@
                 $('#'+id).append('<a href="'+'/vmx/'+oldurl+'/'+data.latest.file+'">'+data.latest.file+'</a> ('+size+'MB)');
             }
         }).fail(function (data) {
-
         }).always(function () {
-
         });
   }
   replacer('VMXserver/Mac');
   replacer('VMXserver/Linux');
   replacer('VMXmiddle/Mac');
+  replacer('VMXmiddle/Linux');
   replacer('vmxAppBuilder');
   replacer('VMXdocs');
   replacer('MacInstaller');
