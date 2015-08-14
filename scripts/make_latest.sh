@@ -53,15 +53,17 @@ else
     PSTRING=_${PLATFORM}
 fi
 
+SORTER=`pwd`"/sorter.sh"
 echo 'Name='$NAME 'Platform='$PLATFORM 'Date='`date`
-TARBALLS=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" 2> /dev/null | sort -V`
+TARBALLS=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" 2> /dev/null | $SORTER`
+
 
 if [ -z "$TARBALLS" ]; then
     echo  '---- Skipping this configuration, no tarballs'
     exit 1
 fi
 
-latest=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | sort -V | tail -1`
+latest=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | $SORTER | tail -1`
 #latest=`ls -ltr $TARBALLS | awk {'print $9'} | tail -1`
 echo 'Latest is' $latest
 
@@ -81,7 +83,7 @@ rm $ROOTDIR/$NAME/$PLATFORM/${NAME}${PSTRING}.latest.${EXT} 2>/dev/null
 ln -s `basename $latest` $ROOTDIR/$NAME/$PLATFORM/${NAME}${PSTRING}.latest.${EXT}
 
 #stable=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | xargs ls -ltr | awk {'print $9'} | grep -v "-" | tail -1`
-stable=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | sort -V | grep -v "-" | tail -1`
+stable=`find $ROOTDIR/$NAME/$PLATFORM/ -type f -name "*.tar.gz" -o -type f -name "*.pkg" | $SORTER | grep -v "-" | tail -1`
 echo 'Stable is ' $stable
 rm $ROOTDIR/$NAME/$PLATFORM/${NAME}${PSTRING}.stable.${EXT} 2>/dev/null
 ln -s `basename $stable` $ROOTDIR/$NAME/$PLATFORM/${NAME}${PSTRING}.stable.${EXT}
@@ -90,7 +92,7 @@ CWD=`pwd`
 cd $ROOTDIR/$NAME/$PLATFORM/
 FL=`ls *.${EXT} | grep "latest"`
 FS=`ls *.${EXT} | grep "stable"`
-F=`ls *.${EXT} | sort -V -r | grep -v "latest" | grep -v "stable"`
+F=`ls *.${EXT} | $SORTER | sort -r | grep -v "latest" | grep -v "stable"`
 md5sum ${FL} ${FS} ${F} > MD5SUMS.txt 2>/dev/null
 #sha1sum ${FL} ${FS} ${F} > SHA1SUMS.txt 2>/dev/null
 #sha256sum ${FL} ${FS} ${F} > SHA256SUMS.txt 2>/dev/null
